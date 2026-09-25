@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Recetario familiar organizado por categorías, con búsqueda rápida y lectura clara.">
+  <title>Recetas de la familia</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237a2e1d'/%3E%3Cpath d='M18 39h28a14 14 0 0 1-28 0Z' fill='%23fff5e9'/%3E%3Cpath d='M24 34c-5-8 7-9 2-17M34 34c-5-8 7-9 2-17M43 34c-4-6 5-8 2-14' fill='none' stroke='%23f7c66b' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Ir al inicio">
+      <span class="brand-mark" aria-hidden="true">RF</span>
+      <span>Recetas de la familia</span>
+    </a>
+    <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span aria-hidden="true">☰</span>
+      <span class="sr-only">Abrir menú</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#recetas">Recetas</a>
+      <a href="#historia">Historia</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">Recetario familiar</p>
+        <h1>Sabores que cuentan nuestra historia</h1>
+        <p>Encuentra preparaciones queridas, desde platos de todos los días hasta postres para compartir.</p>
+        <a class="primary-button" href="#recetas">Explorar recetas</a>
+      </div>
+      <figure class="hero-image">
+        <img src="assets/images/tartas.jpg" alt="Tarta casera recién horneada">
+      </figure>
+    </section>
+
+    <section class="catalogue" id="recetas" aria-labelledby="catalogue-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">El recetario</p>
+          <h2 id="catalogue-title">¿Qué quieres cocinar?</h2>
+        </div>
+        <p id="result-count" class="result-count" aria-live="polite"></p>
+      </div>
+
+      <div class="catalogue-tools">
+        <label class="search-field">
+          <span class="sr-only">Buscar una receta</span>
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="Buscar por nombre o ingrediente…" autocomplete="off">
+        </label>
+        <button class="secondary-button" id="clear-filters" type="button">Limpiar filtros</button>
+      </div>
+
+      <div id="category-filters" class="category-filters" aria-label="Filtrar por categoría"></div>
+      <div id="recipe-grid" class="recipe-grid" aria-live="polite"></div>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <h3>No encontramos coincidencias</h3>
+        <p>Prueba con otro nombre, ingrediente o categoría.</p>
+      </div>
+    </section>
+
+    <section class="story" id="historia">
+      <div>
+        <p class="eyebrow">Nuestra historia</p>
+        <h2>Una mesa, muchas generaciones</h2>
+      </div>
+      <p>Este recetario reúne preparaciones familiares que merecen conservarse y compartirse. Cada receta mantiene su texto original y ahora puede encontrarse de forma rápida y cómoda desde cualquier dispositivo.</p>
+    </section>
+
+    <section class="contact-section" id="contacto" aria-labelledby="contact-title">
+      <div class="contact-copy">
+        <p class="eyebrow">Contacto</p>
+        <h2 id="contact-title">Comparte una receta</h2>
+        <p>Usa el formulario para preparar tu mensaje. La aplicación validará los datos antes de abrir tu programa de correo.</p>
+      </div>
+      <form id="contact-form" class="contact-form" novalidate>
+        <label>Nombre
+          <input id="contact-name" name="name" autocomplete="name" required>
+          <span class="field-error" data-error-for="contact-name"></span>
+        </label>
+        <label>Correo electrónico
+          <input id="contact-email" name="email" type="email" autocomplete="email" required>
+          <span class="field-error" data-error-for="contact-email"></span>
+        </label>
+        <label>Asunto
+          <input id="contact-subject" name="subject" required>
+          <span class="field-error" data-error-for="contact-subject"></span>
+        </label>
+        <label>Mensaje
+          <textarea id="contact-message" name="message" rows="6" required></textarea>
+          <span class="field-error" data-error-for="contact-message"></span>
+        </label>
+        <button class="primary-button" type="submit">Preparar correo</button>
+        <p id="form-status" class="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Recetas de la familia · Hecho para conservar y compartir</p>
+  </footer>
+
+  <dialog id="recipe-dialog" class="recipe-dialog" aria-labelledby="dialog-title">
+    <article>
+      <button id="dialog-close" class="dialog-close" type="button" aria-label="Cerrar receta">×</button>
+      <p id="dialog-category" class="eyebrow"></p>
+      <h2 id="dialog-title"></h2>
+      <div id="dialog-content" class="recipe-content"></div>
+      <div class="dialog-actions">
+        <button id="print-recipe" class="secondary-button" type="button">Imprimir receta</button>
+        <button id="dialog-close-bottom" class="primary-button" type="button">Cerrar</button>
+      </div>
+    </article>
+  </dialog>
+</body>
+</html>
