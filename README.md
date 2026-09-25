@@ -1,0 +1,1 @@
+Proyecto desarrollado originalmente como práctica personal y posteriormente revisado y mejorado con apoyo de herramientas de Inteligencia Artificial para corregir errores, reorganizar código, mejorar estilos y aplicar buenas prácticas de desarrollo web.
